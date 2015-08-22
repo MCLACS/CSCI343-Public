@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Traversal 2</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- datatables -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">	
+
+	<!-- class styles -->
+	<link rel="stylesheet" href="../css/csci343.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- custom local styles -->
+    <style>
+    	.highlight {border: 1px solid black;}
+	</style>
+
+  	</head>
+  	<body id='body'>  
+  		<h3>Colors</h3>	
+
+  		<ul>
+	  		<li>Red</li>	
+	  		<li>Green</li>	
+	  		<li>Blue</li>	
+	  		<li>Yellow</li>	
+	  		<li>Black</li>	
+  		</ul>
+
+  		<button id='all' class="btn btn-info">Show All Children</button>
+  		<button id='first' class="btn btn-info">Show First Child</button>
+  		<button id='second' class="btn btn-info">Show Second Child</button>
+  		<button id='third' class="btn btn-info">Show Third Child</button>
+  		<button id='fourth' class="btn btn-info">Show Fourth Child</button>
+  		<button id='last' class="btn btn-info">Show Last Child</button>
+  		<button id='count' class="btn btn-info">Show Child Count</button>
+  		<button id='clear' class="btn btn-info">Clear</button>
+
+		<!-- jquery -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>	
+
+		<!-- datatables -->	
+		<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>	
+
+		<!-- class scipts -->
+		<script src="../js/csci343.js"></script>	
+		
+		<!-- custom local javascript -->
+		<script>			
+			$('#all').click(function() 
+			{				
+				var p = $('ul').children();			
+				p.addClass("highlight");
+			});
+			$('#first').click(function() 
+			{				
+				var p = $('ul').children().first();			
+				p.addClass("highlight");
+			});
+			$('#second').click(function() 
+			{				
+				var p = $('ul').children();			
+				$(p[1]).addClass("highlight");
+			});
+			$('#third').click(function() 
+			{				
+				var p = $('ul').children();			
+				$(p[2]).addClass("highlight");
+			});
+			$('#fourth').click(function() 
+			{				
+				var p = $('ul').children();			
+				$(p[3]).addClass("highlight");
+			});
+			$('#last').click(function() 
+			{				
+				var p = $('ul').children().last();			
+				p.addClass("highlight");
+			});
+			$('#count').click(function() 
+			{				
+				var p = $('ul').children();			
+				alert($(p).length);
+			});
+			$('#clear').click(function() 
+			{				
+				var p = $('ul').children();			
+				p.removeClass("highlight");
+			});
+
+
+		</script>
+	</body>
+</html>
