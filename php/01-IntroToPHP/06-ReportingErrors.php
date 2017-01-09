@@ -1,9 +1,12 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
+  /*
+    In php.ini:
+    set display_errors = On
+    set error_reporting =  E_ALL | E_STRICT
+  */
 
 	$name = "Mark";
 	$age = 43;
 
-	echo "<ul><li>$name</li><li>$age</li></ul>";
+	echo "<ul><li>name</li><li>$age</li></ul>";
 ?>
