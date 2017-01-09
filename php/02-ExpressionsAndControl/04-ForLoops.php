@@ -22,4 +22,15 @@
 		echo "<p>$count cookies left.</p>";
 	}
 	
+	$people = array("Tim", "Sally", "George", "Ann");
+	foreach ($people as $p)
+	{
+		echo "<p>$p</p>";
+	}
+	
+	foreach ($people as $key => $value)
+	{
+		echo "<p>$key -- $value</p>";
+	}
+	
 ?>
