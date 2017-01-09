@@ -6,7 +6,7 @@
   */
 
 	$name = "Mark";
-	$age = 43;
+	age = 43;
 
-	echo "<ul><li>name</li><li>$age</li></ul>";
+	echo "<ul><li>$name</li><li>$age</li></ul>";
 ?>
