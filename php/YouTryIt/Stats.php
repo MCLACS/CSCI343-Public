@@ -1,7 +1,7 @@
 <?php
 require_once("../Utilities/functions.php");
 
-$numbers = getValue("num", array());
+$numbers = getValue("num", array(0));
 $ave = average($numbers);
 $big = maximum($numbers);
 $small = minimum($numbers);
