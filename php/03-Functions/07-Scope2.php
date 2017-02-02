@@ -5,6 +5,7 @@
 
 	function foo($b)
 	{
+		global $b;
 		$b = $b + 10;
 		echo "b inside function: $b<br/>";
 	}
