@@ -11,6 +11,7 @@
 	$sa= getValue("sa", 0);
 	$cks= getValue("cks", 0);
 	echo "$" . service_charge($ca, $sa, $cks) . "</br>";
+
 	
 	/*
 	echo "$" . service_charge(500, 1001, 10) . "</br>";
@@ -27,4 +28,5 @@
 	echo check_pressure(38, 38, 50, 50) . "</br>";
 	echo check_pressure(38, 38, 20, 20) . "</br>";
 	echo check_pressure(38, 38, 41, 41) . "</br>";	*/
+	
 ?>

@@ -11,19 +11,19 @@
 		{
 			$msg = $msg . "<br>Rear tires must have the same pressure!";
 		}
-		if (inRange($ft1))
+		if (notInRange($ft1))
 		{
 			$msg = $msg . "<br>Front left tire must have a pressure be between 35 and 45!";
 		}
-		if (inRange($ft2))
+		if (notInRange($ft2))
 		{
 			$msg = $msg . "<br>Front right tire must have a pressure be between 35 and 45!";
 		}
-		if (inRange($rt1))
+		if (notInRange($rt1))
 		{
 			$msg = $msg . "<br>Rear left tire must have a pressure be between 35 and 45!";
 		}
-		if (inRange($rt2))
+		if (notInRange($rt2))
 		{
 			$msg = $msg . "<br>Rear right tire must have a pressure be between 35 and 45!";
 		}
@@ -34,7 +34,7 @@
 			return $msg;
 	}
 	
-	function inRange($p)
+	function notInRange($p)
 	{
 		return	$p < 35 || $p > 45;
 	}
