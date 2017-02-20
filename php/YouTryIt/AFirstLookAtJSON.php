@@ -41,7 +41,7 @@ else // list all supported commands
             Parameters: none
 
             Example: 
-                Query string: cmd=?showArray 
+                Query string: ?cmd=showArray 
                 Returns: [\"A\",1,\"B\",2,\"C\",3]
 
         Command: showObject
@@ -51,7 +51,7 @@ else // list all supported commands
             Parameters: none
 
             Example:
-                Query string: 
+                Query string: ?cmd=showObject 
                 Returns: {\"Name\":\"Tim\",\"Age\":23,\"Weight\":175}
 
         Command: showArrayOfObjects
@@ -61,7 +61,7 @@ else // list all supported commands
             Parameters: none
 
             Example:
-                Query string: 
+                Query string: ?cmd=showArrayOfObjects  
                 Returns: [{\"Name\":\"Tim\",\"Age\":23,\"Weight\":175},
                           {\"Name\":\"Sally\",\"Age\":26,\"Weight\":132},
                           {\"Name\":\"Jim\",\"Age\":18,\"Weight\":129}]
@@ -74,7 +74,7 @@ else // list all supported commands
             Parameters: none
 
             Example:
-                Query string: 
+                Query string: ?cmd=showArrayOfObjectsWithArrays
                 Returns: [{\"Name\":\"Tim\",\"Pets\":[\"Cat\",\"Dog\"]},
                           {\"Name\":\"Sally\",\"Pets\":[\"Fish\",\"Python\"]},
                           {\"Name\":\"Tim\",\"Pets\":[\"Frog\",\"Rat\"]}]
