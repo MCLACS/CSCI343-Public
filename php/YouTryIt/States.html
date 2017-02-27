@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <!-- Bootstrap Styles -->
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+        <div class="jumbotron">
+			<h1 class="text-center">New England States!</h1>
+		</div>            
+        <form method="POST" action="States.php">
+			<div class="form-group">
+			    <label for="state">State</label>
+                <select name="state">
+                    <option value='Maine'>Maine</option>
+                    <option value='Massachusetts'>Massachusetts</option>
+                    <option value='New Hampshire'>New Hampshire</option>
+                    <option value='Vermont'>Vermont</option>
+                </select>
+                <input name="cmd" type="hidden" value="getAbbreviation"/>
+            </div>
+            <p><input type="submit" class="btn btn-primary" value="OK"></p>
+        </form>
+    </body>
+    
+</html>
