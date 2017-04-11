@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>My Courses</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <style>
+		.msgBox 
+		{
+			font-weight: bold;		
+		}
+		
+		form
+		{
+			padding: 5px;
+			border: 1px solid black;
+			box-shadow: 10px 10px 5px #888888;
+		}
+	</style>
+
+	</head>
+	<body>
+		<!-- page content -->
+		<div class="container">
+			<h2>My Courses</h2>
+			
+			<table id="courseTable" class="table table-striped">
+				<thead>
+					<tr>
+						<th>CourseID</th>
+						<th>Course Code</th>
+						<th>Course Name</th>
+						<th>Professor</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody id="courseTableBody">
+				</tbody>
+			</table>
+			
+			<p id="message" class="msgBox"></p>
+		
+			<div>
+			<form id="courseForm">
+				<div class="form-group">
+					<label for="courseCode">Course Code</label>
+					<input type="text" class="form-control"
+						id="courseCode" name="courseCode" placeholder="course code">
+				</div>
+				<div class="form-group">
+					<label for="courseName">Course Name</label>
+					<input type="text" class="form-control"
+						id="courseName" name="courseName" placeholder="course name">
+				</div>
+				<div class="form-group">
+					<label for="profName">Proessor</label>
+					<input type="text" class="form-control"
+						id="profName" name="profName" placeholder="professor">
+				</div>
+				
+				<button id="addBtn" type="button" class="btn btn-default">Submit</button>
+			</form>
+			</div>
+			
+		</div>
+
+		<!-- jquery and bootstrap -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+		<!-- custom local javascript -->
+		<script>
+		    // model
+        	var model = [];
+			
+			// view 
+			function updateView()
+			{
+				if (model.error != undefined)
+				{
+					$("#message").text(model.error);
+				}
+				else
+				{
+					$("#courseTableBody").empty();
+					for (var i in model)
+					{
+						var row = model[i];
+						$("#courseTableBody").append("<tr>"+
+							"<td>"+row.CourseID+"</td>"+
+							"<td>"+row.CourseCode+"</td>"+
+							"<td>"+row.CourseName+"</td>"+
+							"<td>"+row.ProfName+"</td>"+
+							"<td><span class='glyphicon glyphicon-remove'></span></td>"+
+							"<tr>");
+					}
+					$("#message").text("You have "+model.length+" course(s) entered.");
+				}
+			}
+
+			// controller
+			$(document).ready(function ()
+			{
+				sendCommand("getCourses");
+			});
+
+			$("#addBtn").click(function ()
+			{
+				sendCommand("addCourse");
+            });
+            
+            function sendCommand(cmd)
+            {
+		    	var url = "Courses.php?cmd="+cmd;
+	            var data = $("#courseForm" ).serialize();
+                var request = $.post(url, data);
+                request.done(function(json)
+                {
+                	console.log(json);
+                    model = json;
+                    updateView();
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown)
+                {
+                    $("#message").text(textStatus);
+                    console.log("fail object ", jqXHR);
+                    console.log("error thrown ", errorThrown);
+                    updateView();
+                });
+            }
+            
+
+		</script>
+	</body>
+</html>
