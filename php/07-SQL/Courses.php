@@ -27,6 +27,12 @@ else if ($cmd == "addCourse")
     header('Content-type: application/json');
     echo json_encode($response);
 }
+else if ($cmd == "deleteCourse")
+{
+    $response = deleteCourse($conn);
+    header('Content-type: application/json');
+    echo json_encode($response);
+}
 
 else // list all supported commands
 {
@@ -76,6 +82,22 @@ function addCourse($conn)
     }
 }
 
+function deleteCourse($conn)
+{
+    $courseID = getValue("courseID", "");
+
+    if ($courseID != "")
+    {
+        $stmt = $conn->prepare("DELETE FROM MyCourses WHERE CourseID = ?");
+        $stmt->bind_param("i", $courseID);
+        $stmt->execute();
+        return getCourses($conn);
+    }
+    else 
+    {
+        return array("error"=>"All fields are required");    
+    }
+}
 
 
 

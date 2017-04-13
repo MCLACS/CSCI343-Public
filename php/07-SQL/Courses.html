@@ -97,8 +97,8 @@
 							"<td>"+row.CourseCode+"</td>"+
 							"<td>"+row.CourseName+"</td>"+
 							"<td>"+row.ProfName+"</td>"+
-							"<td><span class='glyphicon glyphicon-remove'></span></td>"+
-							"<tr>");
+							"<td><a courseID='"+row.CourseID +"' href='#' class='delBtn glyphicon glyphicon-remove'></a></td>"+
+							"</tr>");
 					}
 					$("#message").text("You have "+model.length+" course(s) entered.");
 				}
@@ -114,6 +114,28 @@
 			{
 				sendCommand("addCourse");
             });
+            
+			$(document).on("click", ".delBtn", function()
+			{
+				var id = $(this).attr("courseID");
+
+		    	var url = "Courses.php?cmd=deleteCourse&courseID="+id;
+	            var data = $("#courseForm" ).serialize();
+                var request = $.post(url, data);
+                request.done(function(json)
+                {
+                	console.log(json);
+                    model = json;
+                    updateView();
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown)
+                {
+                    $("#message").text(textStatus);
+                    console.log("fail object ", jqXHR);
+                    console.log("error thrown ", errorThrown);
+                    updateView();
+                });
+            });            
             
             function sendCommand(cmd)
             {
