@@ -27,6 +27,12 @@ else if ($cmd == "addCourse")
     header('Content-type: application/json');
     echo json_encode($response);
 }
+else if ($cmd == "editCourse")
+{
+    $response = editCourse($conn);
+    header('Content-type: application/json');
+    echo json_encode($response);
+}
 else if ($cmd == "deleteCourse")
 {
     $response = deleteCourse($conn);
@@ -73,6 +79,26 @@ function addCourse($conn)
     {
         $stmt = $conn->prepare("INSERT INTO MyCourses(CourseCode, CourseName, ProfName) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $courseCode, $courseName, $profName);
+        $stmt->execute();
+        return getCourses($conn);
+    }
+    else 
+    {
+        return array("error"=>"All fields are required");    
+    }
+}
+
+function editCourse($conn)
+{
+    $courseID = getValue("courseID", "");
+    $courseCode = getValue("courseCode", "");
+    $courseName = getValue("courseName", "");
+    $profName = getValue("profName", "");
+    
+    if ($courseCode != "" && $courseName != "" && $profName != "")
+    {
+        $stmt = $conn->prepare("UPDATE MyCourses SET CourseCode = ?, CourseName = ?, ProfName = ? WHERE CourseID = ?");
+        $stmt->bind_param("sssi", $courseCode, $courseName, $profName, $courseID);
         $stmt->execute();
         return getCourses($conn);
     }
