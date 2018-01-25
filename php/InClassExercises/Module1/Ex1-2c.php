@@ -1,10 +1,10 @@
 <?php
-	require_once "AccountFee.php";
-	require_once "TirePressure.php";
-	require_once "../Utilities/functions.php";
+	require_once "Ex1-2a.php";
+	require_once "Ex1-2b.php";
+	require_once "../../Utilities/functions.php";
 	
 	
-	$tires = getValue("tire", array(0,0,0,0));
+	$tires = getValue("tire", array(38,11,39,37));
 	echo check_pressure($tires[0], $tires[1], $tires[2], $tires[3]) . "</br>";
 	
 	$ca= getValue("ca", 0);
