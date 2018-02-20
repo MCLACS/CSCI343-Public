@@ -1,5 +1,5 @@
 <?php
-require_once "functions.php";
+require_once "../../Utilities/functions.php";
 
 session_start();
 header("Access-Control-Allow-Origin: *");
@@ -20,15 +20,23 @@ else // list all supported commands
   echo
   "
     <pre>
-        Command: 
+        Command: calculate
       
             Description: 
+                Calculates the number of cans of paint required to
+                paint a room.
             
             Parameters: 
+                sqFt1: Square Ft You Need to Paint
+                sqFt2: Square Ft Per Can
+                canCost: Cost of a Can of Paint
 
             Example:
-                Query string: 
+                Query string: ?cmd=calculate&sqFt1=1000&sqFt2=200&canCost=50
+                
                 Returns: 
+                
+                { error: 'none', cans 5: cost: 250.00}
 
     </pre>            
   ";
