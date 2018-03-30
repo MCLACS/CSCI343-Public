@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lottery</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <style>
+
+	  </style>
+
+	</head>
+	<body>
+		<!-- page content -->
+		<div class="container">
+			<h2>Lottery Wins By Day</h2>
+			<form id="lotteryForm">
+				<div class="form-group">
+					<label for="num">Day</label>
+					<select id="day" name="day">
+						<option value="Monday">Monday</option>
+						<option value="Tuesday">Tuesday</option>
+						<option value="Wednesday">Wednesday</option>
+						<option value="Thursday">Thursday</option>
+						<option value="Friday">Friday</option>
+					</select>
+				</div>
+				<button id="btnAdd" type="button" class="btn btn-default">Add Win</button>
+				<button id="btnReset" type="button" class="btn btn-default">Rest Wins</button>			
+			</form>
+
+			<ul id="response">
+				
+			</ul>
+			
+		</div>
+
+		<!-- jquery and bootstrap -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+		<!-- custom local javascript -->
+		<script>
+		    // model
+        	var model = [];
+			
+			// view 
+			function updateView()
+			{
+	    		$("#response").empty();
+	    	    for (var f in model)
+	    	    {
+	    	        $("#response").append("<li>"+model[f].day+": "+model[f].times+"</li>");
+	    	    }
+			}
+
+			// controller
+			$(document).ready()
+			{
+		    	var url = "Lottery.php?cmd=get";
+                var request = $.post(url, "");
+                request.done(function(json)
+                {
+                    model = json;
+                    updateView();
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log("Error!");
+                });
+			}
+			
+			$("#btnAdd").click(function ()
+			{
+		    	var url = "Lottery.php?cmd=add";
+	            var data = $("#lotteryForm" ).serialize();
+                var request = $.post(url, data);
+                request.done(function(json)
+                {
+                    model = json;
+                    updateView();
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log("Error!");
+                });
+            });
+            
+			$("#btnReset").click(function ()
+			{
+		    	var url = "Lottery.php?cmd=reset";
+                var request = $.post(url, "");
+                request.done(function(json)
+                {
+                    model = json;
+                    updateView();
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log("Error!");
+                });
+            });
+		</script>
+	</body>
+</html>
