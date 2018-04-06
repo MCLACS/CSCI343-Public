@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>My Courses</title>
 
@@ -34,6 +31,7 @@
 		<div class="container">
 			<h2>My Courses</h2>
 			
+			<!-- table of courses -->
 			<table id="courseTable" class="table table-striped">
 				<thead>
 					<tr>
@@ -49,32 +47,34 @@
 				</tbody>
 			</table>
 			
+			<!-- status message -->
 			<p id="message" class="msgBox"></p>
 			
+			<!-- new course button -->
 			<button id="showFormBtn" type="button" class="btn btn-default">New</button>
 		
-			<div>
-			<form id="courseForm">
-				<div class="form-group">
-					<label for="courseCode">Course Code</label>
-					<input type="text" class="form-control"
-						id="courseCode" name="courseCode" placeholder="course code">
-				</div>
-				<div class="form-group">
-					<label for="courseName">Course Name</label>
-					<input type="text" class="form-control"
-						id="courseName" name="courseName" placeholder="course name">
-				</div>
-				<div class="form-group">
-					<label for="profName">Proessor</label>
-					<input type="text" class="form-control"
-						id="profName" name="profName" placeholder="professor">
-				</div>
-				
-				<button id="addBtn" type="button" class="btn btn-default">Submit</button>
-			</form>
+			<!-- new course div -->
+			<div> 
+				<form id="courseForm">
+					<div class="form-group">
+						<label for="courseCode">Course Code</label>
+						<input type="text" class="form-control"
+							id="courseCode" name="courseCode" placeholder="course code">
+					</div>
+					<div class="form-group">
+						<label for="courseName">Course Name</label>
+						<input type="text" class="form-control"
+							id="courseName" name="courseName" placeholder="course name">
+					</div>
+					<div class="form-group">
+						<label for="profName">Proessor</label>
+						<input type="text" class="form-control"
+							id="profName" name="profName" placeholder="professor">
+					</div>
+					
+					<button id="addBtn" type="button" class="btn btn-default">Submit</button>
+				</form>
 			</div>
-			
 		</div>
 
 		<!-- jquery and bootstrap -->
@@ -89,18 +89,19 @@
 			// view 
 			function updateView()
 			{
+				// do we have an error?
 				if (model.error != undefined)
 				{
 					$("#message").text(model.error);
 					$("#message").addClass("error");
 				}
-				else
+				else // no error...
 				{
-					$("#message").removeClass("error");
+					// populate the table body with the data in the model...
 					$("#courseTableBody").empty();
-					for (var i in model)
+					for (var r in model)
 					{
-						var row = model[i];
+						var row = model[r];
 						$("#courseTableBody").append("<tr>"+
 							"<td>"+row.CourseID+"</td>"+
 							"<td>"+row.CourseCode+"</td>"+
@@ -110,6 +111,9 @@
 							"<td><a courseID='"+row.CourseID +"' href='#' class='editBtn glyphicon glyphicon-pencil'></a></td>"+
 							"</tr>");
 					}
+					
+					// update the status...
+					$("#message").removeClass("error");
 					$("#message").text("You have "+model.length+" course(s) entered.");
 				}
 			}
@@ -117,6 +121,13 @@
 			// controller
 			$(document).ready(function ()
 			{
+				// add static event handlers after page loads...
+				$("#saveBtn").click(function ()
+				{
+					sendCommand("editCourse", "#courseForm2");
+					$('#editDlg').modal('hide');
+	            });
+	            
 				$("#showFormBtn").click(function ()
 				{
 					$("#courseForm").toggle(1000);
@@ -124,36 +135,15 @@
 	
 				$("#addBtn").click(function ()
 				{
-					sendCommand("addCourse");
+					sendCommand("addCourse", "#courseForm");
 					$("#courseForm").hide(1000);
-	            });
-	            
-				$("#saveBtn").click(function ()
-				{
-			    	var url = "Courses.php?cmd=editCourse";
-		            var data = $("#courseForm2" ).serialize();
-	                var request = $.post(url, data);
-	                request.done(function(json)
-	                {
-	                	console.log(json);
-	                    model = json;
-	                    updateView();
-	                });
-	                request.fail(function(jqXHR, textStatus, errorThrown)
-	                {
-	                    $("#message").text(textStatus);
-	                    console.log("fail object ", jqXHR);
-	                    console.log("error thrown ", errorThrown);
-	                    updateView();
-	                });
-	                
-					$('#editDlg').modal('hide');
-	            });
+	            });	            
             
 				$("#courseForm").hide();
 				sendCommand("getCourses");
 			});
             
+            // dynamic event handlers...
             $(document).on("click", ".editBtn", function()
             {
             	var id = $(this).attr("courseID");
@@ -170,33 +160,19 @@
             	
             	$('#editDlg').modal('show');
             })
-            
+           
 			$(document).on("click", ".delBtn", function()
 			{
 				var id = $(this).attr("courseID");
-
-		    	var url = "Courses.php?cmd=deleteCourse&courseID="+id;
-	            var data = $("#courseForm" ).serialize();
-                var request = $.post(url, data);
-                request.done(function(json)
-                {
-                	console.log(json);
-                    model = json;
-                    updateView();
-                });
-                request.fail(function(jqXHR, textStatus, errorThrown)
-                {
-                    $("#message").text(textStatus);
-                    console.log("fail object ", jqXHR);
-                    console.log("error thrown ", errorThrown);
-                    updateView();
-                });
+				sendCommand("deleteCourse&courseID="+id);
             });            
             
-            function sendCommand(cmd)
+            function sendCommand(cmd, formID)
             {
 		    	var url = "Courses.php?cmd="+cmd;
-	            var data = $("#courseForm" ).serialize();
+	            var data = "";
+	            if (formID !== undefined)
+	            	data = $(formID).serialize();
                 var request = $.post(url, data);
                 request.done(function(json)
                 {
@@ -216,7 +192,7 @@
 
 		</script>
 		
-		
+		<!-- edit course form -->
 		<div id="editDlg" class="modal fade" tabindex="-1" role="dialog">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -243,10 +219,9 @@
 					</div>
 					<input id="courseID" name="courseID" type="hidden">
 				</form>
-
 		      </div>
 		      <div class="modal-footer">
-		      	<a id="saveBtn" class="btn btn-primary">Save</a>
+		      	<button id="saveBtn" type="button" class="btn btn-primary">Save</button>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 		      </div>
 		    </div><!-- /.modal-content -->
