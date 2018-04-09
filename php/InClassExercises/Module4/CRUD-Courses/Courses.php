@@ -27,7 +27,6 @@ else if ($cmd == "read")
     header('Content-type: application/json');
     echo json_encode($response);
 }
-
 else if ($cmd == "update")
 {
     $response = update($conn);

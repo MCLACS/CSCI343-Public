@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Secret Message</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <style>
+
+	  </style>
+
+	</head>
+	<body>
+		<!-- page content -->
+		<div class="container">
+			<h2>Login to see the secret message</h2>
+			<form id="loginForm">
+				<div class="form-group">
+					<label for="userName">Username:</label>
+					<input type="text" class="form-control"
+						id="userName" name="userName" placeholder="username">
+					<label for="userPass">Password:</label>
+					<input type="password" class="form-control"
+						id="userPass" name="userPass" placeholder="password">
+				</div>
+				<button id="btnLogin" type="button" class="btn btn-default">Login</button>
+			</form>
+
+			<p id="error">
+				
+			</p>
+
+			<h3>Message:</h3>
+			<p id="message">
+				
+			</p>
+			
+		</div>
+
+		<!-- jquery and bootstrap -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+		<!-- custom local javascript -->
+		<script>
+		    // model
+        	var model = [];
+			
+			// view 
+			function updateView()
+			{
+	    		$("#error").empty();
+	    		$("#message").empty();
+	    		if (model.user != undefined)
+	    		{
+	    			$("#error").text(model.user.userFullName + " logged in!");
+	    			$("#message").text("Eat oatmeal every day.");
+	    		}
+	    		else
+	    		{
+	    			$("#error").text(model.error);
+	    		}
+			}
+
+			// controller
+			$(document).ready()
+			{
+				$("#btnLogin").click(function ()
+				{
+			    	var url = "login";
+			    	sendCommand(url, "#loginForm");
+            	});	
+			}
+			
+            function sendCommand(cmd, formID)
+            {
+		    	var url = "user.php?cmd="+cmd;
+	            var data = "";
+	            if (formID !== undefined)
+	            	data = $(formID).serialize();
+                var request = $.post(url, data);
+                request.done(function(json)
+                {
+                	console.log(json);
+                    model = json;
+                    updateView();
+                });
+                request.fail(function(jqXHR, textStatus, errorThrown)
+                {
+                    $("#message").text(textStatus);
+                    console.log("fail object ", jqXHR);
+                    console.log("error thrown ", errorThrown);
+                    updateView();
+                });
+            }
+            
+		</script>
+	</body>
+</html>

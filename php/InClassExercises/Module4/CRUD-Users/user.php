@@ -212,6 +212,7 @@ function update($conn)
     $user["userID"] = $userID;
     $user["userName"] = $userName;
     $user["userFullName"] = $userFullName;
+    setSessionValue("user", $user);
     $response["user"] = $user;
 
     return $response;
