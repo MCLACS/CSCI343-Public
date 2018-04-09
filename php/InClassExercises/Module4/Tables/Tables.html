@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	</head>
+
+
+	<style>
+		.inputDiv
+		{
+			border: 1px solid black;
+			padding: 5px;
+		}
+	</style>
+
+	<body>
+		<!-- HTML Goes Here... -->
+		<div class="container">
+			<table class='table table-striped'>
+				<thead>
+					<tr><th>Name</th><th>Age</th><th>Delete</th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<div class='inputDiv'>
+				<p>
+					<label for="name">Name: </label><input type="text" id="name"/>
+					<label for="name">Age: </label><input type="text" id="age"/>			
+					<input type="button" id="add" class="btn btn-primary" value="Add"/>
+				</p>
+			</div>
+		</div>
+		
+		<!-- jquery and bootstrap -->
+		<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+		<script>
+			$(document).ready(function ()
+			{
+				$(document).on("click", ".delete", function()
+            	{	
+					$(this).parent().remove();
+				});	
+				
+				$('#add').click(function() 
+				{
+					$("tbody").append("<tr><td>"+$("#name").val()+"</td><td>"+$("#age").val()+"</td><td class='delete'>X</td></tr>");
+				});
+			})
+		</script>
+
+	</body>
+</html>
+
+<!-- 
+	Additional Exercises:
+
+	1)	Add code that checks to ensure that both the name
+		and age are entered (not left blank).  If one or both
+		are blank an alert box should appear asking the user 
+		to try again.
+
+	2)	Add code that checks to ensure that the age entered is 
+		an integer.  If it is not an integer, an alert box should
+		appear asking the user to try again.  HINT: check back on 
+		unit 01 for help testing if a variable is an integer.
+		
+-->

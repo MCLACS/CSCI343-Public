@@ -1,0 +1,34 @@
+Don't forget to reset databse before running tests!
+
+Test the API Message
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?
+
+Test create
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=create&userName=timster&userFullName=Tim%20Smith&userPass=abcdefgh
+
+Test create already exists
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=create&userName=timster&userFullName=Tim%20Smith&userPass=abcdefgh
+
+Test read
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=read
+
+Test update
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=update&userName=timmyking&userFullName=Tim%20A%20Smith&userPass=ijklmnop
+
+Test isLoggedIn
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=isLoggedIn
+
+Test logOut
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=logout
+
+Test logIn failure 1
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=login&userName=timmyking&userPass=dsfsfs
+
+Test logIn failure 2
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=login&userName=dfsdfsd&userPass=ijklmnop
+
+Test logIn success
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=login&userName=timmyking&userPass=ijklmnop
+
+Test delete
+https://csci343-mclacs.c9users.io/CSCI343-Public/php/InClassExercises/Module4/CRUD/user.php?cmd=delete

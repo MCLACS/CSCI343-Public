@@ -124,7 +124,7 @@
 				// add static event handlers after page loads...
 				$("#saveBtn").click(function ()
 				{
-					sendCommand("editCourse", "#courseForm2");
+					sendCommand("update", "#courseForm2");
 					$('#editDlg').modal('hide');
 	            });
 	            
@@ -135,12 +135,12 @@
 	
 				$("#addBtn").click(function ()
 				{
-					sendCommand("addCourse", "#courseForm");
+					sendCommand("create", "#courseForm");
 					$("#courseForm").hide(1000);
 	            });	            
             
 				$("#courseForm").hide();
-				sendCommand("getCourses");
+				sendCommand("read");
 			});
             
             // dynamic event handlers...
@@ -164,7 +164,7 @@
 			$(document).on("click", ".delBtn", function()
 			{
 				var id = $(this).attr("courseID");
-				sendCommand("deleteCourse&courseID="+id);
+				sendCommand("delete&courseID="+id);
             });            
             
             function sendCommand(cmd, formID)

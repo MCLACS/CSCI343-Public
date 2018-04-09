@@ -15,27 +15,28 @@ if ($conn->connect_error) {
 } 
 
 $cmd = getValue("cmd", "");
-if ($cmd == "getCourses")
+if ($cmd == "create")
 {
-    $response = getCourses($conn);
+    $response = create($conn);
     header('Content-type: application/json');
     echo json_encode($response);
 }
-else if ($cmd == "addCourse")
+else if ($cmd == "read")
 {
-    $response = addCourse($conn);
+    $response = read($conn);
     header('Content-type: application/json');
     echo json_encode($response);
 }
-else if ($cmd == "editCourse")
+
+else if ($cmd == "update")
 {
-    $response = editCourse($conn);
+    $response = update($conn);
     header('Content-type: application/json');
     echo json_encode($response);
 }
-else if ($cmd == "deleteCourse")
+else if ($cmd == "delete")
 {
-    $response = deleteCourse($conn);
+    $response = delete($conn);
     header('Content-type: application/json');
     echo json_encode($response);
 }
@@ -44,32 +45,10 @@ else // list all supported commands
 {
   echo
   "
-    <pre>
-        Command: getCourses
-      
-            Description: Returns an array of all of the courses in the database
-            
-            Parameters: none
-
-            Example:
-                Query string: ?cmd=getCourses
-                Returns: 
-    </pre>            
   ";
 }
 
-function getCourses($conn)
-{
-    $result = $conn->query("SELECT * FROM MyCourses");
-    $rows = array();
-    while($r = mysqli_fetch_assoc($result)) 
-    {
-        $rows[] = $r;
-    }
-    return $rows;
-}
-
-function addCourse($conn)
+function create($conn)
 {
     $courseCode = getValue("courseCode", "");
     $courseName = getValue("courseName", "");
@@ -80,7 +59,7 @@ function addCourse($conn)
         $stmt = $conn->prepare("INSERT INTO MyCourses(CourseCode, CourseName, ProfName) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $courseCode, $courseName, $profName);
         $stmt->execute();
-        return getCourses($conn);
+        return read($conn);
     }
     else 
     {
@@ -88,7 +67,18 @@ function addCourse($conn)
     }
 }
 
-function editCourse($conn)
+function read($conn)
+{
+    $result = $conn->query("SELECT * FROM MyCourses");
+    $rows = array();
+    while($r = mysqli_fetch_assoc($result)) 
+    {
+        $rows[] = $r;
+    }
+    return $rows;
+}
+
+function update($conn)
 {
     $courseID = getValue("courseID", "");
     $courseCode = getValue("courseCode", "");
@@ -100,7 +90,7 @@ function editCourse($conn)
         $stmt = $conn->prepare("UPDATE MyCourses SET CourseCode = ?, CourseName = ?, ProfName = ? WHERE CourseID = ?");
         $stmt->bind_param("sssi", $courseCode, $courseName, $profName, $courseID);
         $stmt->execute();
-        return getCourses($conn);
+        return read($conn);
     }
     else 
     {
@@ -108,7 +98,7 @@ function editCourse($conn)
     }
 }
 
-function deleteCourse($conn)
+function delete($conn)
 {
     $courseID = getValue("courseID", "");
 
@@ -117,7 +107,7 @@ function deleteCourse($conn)
         $stmt = $conn->prepare("DELETE FROM MyCourses WHERE CourseID = ?");
         $stmt->bind_param("i", $courseID);
         $stmt->execute();
-        return getCourses($conn);
+        return read($conn);
     }
     else 
     {
